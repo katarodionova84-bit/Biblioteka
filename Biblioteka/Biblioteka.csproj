@@ -67,14 +67,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddAuthorWindow.xaml.cs">
-      <DependentUpon>AddAuthorWindow.xaml</DependentUpon>
+    <Compile Include="Author.xaml.cs">
+      <DependentUpon>Author.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddBookWindow.xaml.cs">
-      <DependentUpon>AddBookWindow.xaml</DependentUpon>
+    <Compile Include="Book.xaml.cs">
+      <DependentUpon>Book.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddReaderWindow.xaml.cs">
-      <DependentUpon>AddReaderWindow.xaml</DependentUpon>
+    <Compile Include="Reader.xaml.cs">
+      <DependentUpon>Reader.xaml</DependentUpon>
     </Compile>
     <Compile Include="IssueBookWindow.xaml.cs">
       <DependentUpon>IssueBookWindow.xaml</DependentUpon>
@@ -96,15 +96,15 @@
     <Compile Include="Читатели.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Page Include="AddAuthorWindow.xaml">
+    <Page Include="Author.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AddBookWindow.xaml">
+    <Page Include="Book.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AddReaderWindow.xaml">
+    <Page Include="Reader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

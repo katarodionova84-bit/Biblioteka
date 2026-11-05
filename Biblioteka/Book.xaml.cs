@@ -1,39 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Biblioteka
 {
-    public partial class AddBookWindow : Window
+    public partial class Book : Window
     {
         private readonly LibraryEntities db;
         private readonly Книги editingBook;
-        public AddBookWindow(LibraryEntities context)
+
+        public Book(LibraryEntities context)
         {
             InitializeComponent();
-
             db = context;
             editingBook = null;
-
             AuthorBox.ItemsSource = db.Авторы.ToList();
         }
-        public AddBookWindow(LibraryEntities context, Книги book)
+
+        public Book(LibraryEntities context, Книги book)
         {
             InitializeComponent();
-
             db = context;
             editingBook = book;
-
             AuthorBox.ItemsSource = db.Авторы.ToList();
 
             TitleBox.Text = book.Название;
@@ -57,8 +46,7 @@ namespace Biblioteka
                 return;
             }
 
-            if (!int.TryParse(YearBox.Text, out int year) ||
-                year < 1 || year > 9999)
+            if (!int.TryParse(YearBox.Text, out int year) || year < 1 || year > 9999)
             {
                 MessageBox.Show("Введите корректный год!");
                 return;
@@ -73,7 +61,6 @@ namespace Biblioteka
             try
             {
                 Книги book = editingBook ?? new Книги();
-
                 book.Название = TitleBox.Text.Trim();
                 book.КодАвтора = (int)AuthorBox.SelectedValue;
                 book.ГодИздания = year;
@@ -81,21 +68,18 @@ namespace Biblioteka
                 book.КоличествоСтраниц = pages;
 
                 if (editingBook == null)
-                {
                     db.Книги.Add(book);
-                }
 
                 db.SaveChanges();
 
-                MessageBox.Show(
-                    editingBook == null
+                MessageBox.Show(editingBook == null
                     ? "Книга успешно добавлена!"
                     : "Изменения сохранены!");
 
                 DialogResult = true;
                 Close();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Ошибка сохранения: " + ex.Message);
             }
@@ -109,7 +93,6 @@ namespace Biblioteka
 
         private void AuthorBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
         }
     }
 }

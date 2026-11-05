@@ -66,10 +66,6 @@
                                FontSize="27"
                                FontWeight="Bold"
                                Foreground="White"/>
-                    <TextBlock Text="Система управления библиотекой"
-                               FontSize="14"
-                               Foreground="#FFFFF4"
-                               Margin="2,5,0,0"/>
                 </StackPanel>
 
                 <TextBlock Text="♡"

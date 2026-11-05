@@ -5,23 +5,24 @@ using System.Windows.Controls;
 
 namespace Biblioteka
 {
-    public partial class AddReaderWindow : Window
+    public partial class Reader : Window
     {
         private readonly LibraryEntities db;
         private readonly Читатели editingReader;
-        public AddReaderWindow(LibraryEntities context)
+
+        public Reader(LibraryEntities context)
         {
             InitializeComponent();
-
             db = context;
             editingReader = null;
         }
-        public AddReaderWindow(LibraryEntities context, Читатели reader)
+
+        public Reader(LibraryEntities context, Читатели reader)
         {
             InitializeComponent();
-
             db = context;
             editingReader = reader;
+
             FullNameBox.Text = reader.ФИО;
             BirthDateBox.Text = reader.ДатаРождения.ToString("dd.MM.yyyy");
             PhoneBox.Text = reader.НомерТелефона;
@@ -54,7 +55,8 @@ namespace Biblioteka
             }
 
             DateTime birthDate;
-            if (!DateTime.TryParseExact(BirthDateBox.Text.Trim(),"dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out birthDate))
+            if (!DateTime.TryParseExact(BirthDateBox.Text.Trim(), "dd.MM.yyyy",
+                CultureInfo.InvariantCulture, DateTimeStyles.None, out birthDate))
             {
                 MessageBox.Show("Введите дату рождения в формате дд.мм.гггг!");
                 return;
@@ -63,19 +65,21 @@ namespace Biblioteka
             if (birthDate.Date > DateTime.Today)
             {
                 MessageBox.Show("Дата рождения не может быть в будущем!");
-                return;}
-            if (!EmailBox.Text.Contains("@") ||
-                !EmailBox.Text.Contains("."))
+                return;
+            }
+
+            if (!EmailBox.Text.Contains("@") || !EmailBox.Text.Contains("."))
             {
                 MessageBox.Show("Введите корректную электронную почту!");
                 return;
             }
+
             try
             {
                 var selectedRole = (ComboBoxItem)RoleBox.SelectedItem;
                 int role = int.Parse(selectedRole.Tag.ToString());
-                Читатели reader = editingReader ?? new Читатели();
 
+                Читатели reader = editingReader ?? new Читатели();
                 reader.ФИО = FullNameBox.Text.Trim();
                 reader.ДатаРождения = birthDate.Date;
                 reader.НомерТелефона = PhoneBox.Text.Trim();
@@ -84,14 +88,11 @@ namespace Biblioteka
                 reader.Роль = role;
 
                 if (editingReader == null)
-                {
                     db.Читатели.Add(reader);
-                }
 
                 db.SaveChanges();
 
-                MessageBox.Show(
-                    editingReader == null
+                MessageBox.Show(editingReader == null
                     ? "Читатель успешно добавлен!"
                     : "Изменения сохранены!");
 
@@ -109,9 +110,9 @@ namespace Biblioteka
             DialogResult = false;
             Close();
         }
+
         private void RoleBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
         }
     }
 }
